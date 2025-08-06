@@ -380,6 +380,14 @@ ALTER TABLE `catalog_product_entity_tier_price`
     ADD CONSTRAINT `UNQ_E8AB433B9ACB00343ABB312AD2FAB087` UNIQUE KEY (`entity_id`,`all_groups`,`customer_group_id`,`qty`,`website_id`),
 	DROP COLUMN `row_id`;
 
+-- Delete row_id foreign of amasty_giftcard_price
+ALTER TABLE `amasty_giftcard_price`
+    DROP FOREIGN KEY `AMASTY_GIFTCARD_PRICE_PRODUCT_ID_CATALOG_PRODUCT_ENTITY_ROW_ID`;
+
+-- Delete row_id foreign of icp_catalog_product_default_super_link
+ALTER TABLE `icp_catalog_product_default_super_link`
+    DROP FOREIGN KEY `ICP_CAT_PRD_DEFAULT_SPR_LNK_PARENT_ID_CAT_PRD_ENTT_ENTT_ID`;
+
 -- Entity
 SET FOREIGN_KEY_CHECKS = 0;
 ALTER TABLE `catalog_product_entity`
@@ -501,8 +509,14 @@ ALTER TABLE `weee_tax`
     DROP FOREIGN KEY `WEEE_TAX_ENTITY_ID_SEQUENCE_PRODUCT_SEQUENCE_VALUE`,
     ADD CONSTRAINT `WEEE_TAX_ENTITY_ID_CATALOG_PRODUCT_ENTITY_ENTITY_ID` FOREIGN KEY (`entity_id`) REFERENCES `catalog_product_entity` (`entity_id`) ON DELETE CASCADE ON UPDATE RESTRICT;
 
+-- delete non existing products before altering wishlist_item
+DELETE wi
+    FROM wishlist_item wi
+    LEFT JOIN catalog_product_entity cpe ON wi.product_id = cpe.entity_id
+    WHERE cpe.entity_id IS NULL;
+
 ALTER TABLE `wishlist_item`
     DROP FOREIGN KEY `WISHLIST_ITEM_PRODUCT_ID_SEQUENCE_PRODUCT_SEQUENCE_VALUE`,
     ADD CONSTRAINT `WISHLIST_ITEM_PRODUCT_ID_CATALOG_PRODUCT_ENTITY_ENTITY_ID` FOREIGN KEY (`product_id`) REFERENCES `catalog_product_entity` (`entity_id`) ON DELETE CASCADE ON UPDATE RESTRICT;
 
-DROP TABLE `sequence_product_bundle_selection`,`sequence_product_bundle_option`,`sequence_product`;
+-- DROP TABLE `sequence_product_bundle_selection`,`sequence_product_bundle_option`,`sequence_product`;
