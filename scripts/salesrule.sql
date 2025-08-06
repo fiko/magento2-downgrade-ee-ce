@@ -77,6 +77,26 @@ ALTER TABLE `salesrule_label`
     DROP KEY `SALESRULE_LABEL_ROW_ID_STORE_ID`, ADD UNIQUE KEY `SALESRULE_LABEL_RULE_ID_STORE_ID` (`rule_id`, `store_id`),
     DROP COLUMN `row_id`;
 
+-- Delete row_id foreign of amasty_ampromo_rule
+ALTER TABLE `amasty_ampromo_rule`
+    DROP FOREIGN KEY `AMASTY_AMPROMO_RULE_SALESRULE_ID_SALESRULE_ROW_ID`;
+
+-- Delete row_id foreign of amasty_amrules_rule
+ALTER TABLE `amasty_amrules_rule`
+    DROP FOREIGN KEY `AMASTY_AMRULES_RULE_SALESRULE_ID_SALESRULE_ROW_ID`;
+
+-- Delete row_id foreign of amasty_amrules_usage_limit
+ALTER TABLE `amasty_amrules_usage_limit`
+    DROP FOREIGN KEY `AMASTY_AMRULES_USAGE_LIMIT_SALESRULE_ID_SALESRULE_ROW_ID`;
+
+-- Delete row_id foreign of amasty_banners_lite_banner_data
+ALTER TABLE `amasty_banners_lite_banner_data`
+    DROP FOREIGN KEY `AMASTY_BANNERS_LITE_BANNER_DATA_SALESRULE_ID_SALESRULE_RULE_ID`;
+
+-- Delete row_id foreign of amasty_banners_lite_rule
+ALTER TABLE `amasty_banners_lite_rule`
+    DROP FOREIGN KEY `AMASTY_BANNERS_LITE_RULE_SALESRULE_ID_SALESRULE_RULE_ID`;
+
 -- Salesrule
 ALTER TABLE `salesrule`
     DROP FOREIGN KEY `SALESRULE_RULE_ID_SEQUENCE_SALESRULE_SEQUENCE_VALUE`,
