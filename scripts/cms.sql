@@ -77,6 +77,12 @@ SET FOREIGN_KEY_CHECKS = 1;
 ALTER TABLE `cms_block_store`
     ADD CONSTRAINT `CMS_BLOCK_STORE_BLOCK_ID_CMS_BLOCK_BLOCK_ID` FOREIGN KEY (`block_id`) REFERENCES `cms_block` (`block_id`) ON DELETE CASCADE ON UPDATE RESTRICT;
 
+-- clean orphaned cms block store
+DELETE cps
+    FROM cms_page_store cps
+    LEFT JOIN cms_page cp ON cps.page_id = cp.page_id
+    WHERE cp.page_id IS NULL;
+
 -- Foreign keys cms page
 ALTER TABLE `cms_page_store`
     ADD CONSTRAINT `CMS_PAGE_STORE_PAGE_ID_CMS_PAGE_PAGE_ID` FOREIGN KEY (`page_id`) REFERENCES `cms_page` (`page_id`) ON DELETE CASCADE ON UPDATE RESTRICT;
@@ -85,4 +91,4 @@ ALTER TABLE `cms_page_store`
 -- Drop sequence --
 -- ----------------
 
-DROP TABLE `sequence_cms_page`,`sequence_cms_block`;
+-- DROP TABLE `sequence_cms_page`,`sequence_cms_block`;
