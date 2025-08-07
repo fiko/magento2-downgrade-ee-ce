@@ -80,22 +80,32 @@ ALTER TABLE `salesrule_label`
 -- Delete row_id foreign of amasty_ampromo_rule
 ALTER TABLE `amasty_ampromo_rule`
     DROP FOREIGN KEY `AMASTY_AMPROMO_RULE_SALESRULE_ID_SALESRULE_ROW_ID`;
+UPDATE `amasty_ampromo_rule` v INNER JOIN `salesrule` e ON v.`salesrule_id` = e.`row_id`
+    SET v.`salesrule_id` = e.`rule_id`;
 
 -- Delete row_id foreign of amasty_amrules_rule
 ALTER TABLE `amasty_amrules_rule`
     DROP FOREIGN KEY `AMASTY_AMRULES_RULE_SALESRULE_ID_SALESRULE_ROW_ID`;
+UPDATE `amasty_amrules_rule` v INNER JOIN `salesrule` e ON v.`salesrule_id` = e.`row_id`
+    SET v.`salesrule_id` = e.`rule_id`;
 
 -- Delete row_id foreign of amasty_amrules_usage_limit
 ALTER TABLE `amasty_amrules_usage_limit`
     DROP FOREIGN KEY `AMASTY_AMRULES_USAGE_LIMIT_SALESRULE_ID_SALESRULE_ROW_ID`;
+UPDATE `amasty_amrules_usage_limit` v INNER JOIN `salesrule` e ON v.`salesrule_id` = e.`row_id`
+    SET v.`salesrule_id` = e.`rule_id`;
 
 -- Delete row_id foreign of amasty_banners_lite_banner_data
 ALTER TABLE `amasty_banners_lite_banner_data`
     DROP FOREIGN KEY `AMASTY_BANNERS_LITE_BANNER_DATA_SALESRULE_ID_SALESRULE_RULE_ID`;
+UPDATE `amasty_banners_lite_banner_data` v INNER JOIN `salesrule` e ON v.`salesrule_id` = e.`row_id`
+    SET v.`salesrule_id` = e.`rule_id`;
 
 -- Delete row_id foreign of amasty_banners_lite_rule
 ALTER TABLE `amasty_banners_lite_rule`
     DROP FOREIGN KEY `AMASTY_BANNERS_LITE_RULE_SALESRULE_ID_SALESRULE_RULE_ID`;
+UPDATE `amasty_banners_lite_rule` v INNER JOIN `salesrule` e ON v.`salesrule_id` = e.`row_id`
+    SET v.`salesrule_id` = e.`rule_id`;
 
 -- Salesrule
 ALTER TABLE `salesrule`
